@@ -37,9 +37,7 @@ void do_request(String sensor) {
 
 // Checks if motion was detected, sets LED HIGH and starts a timer
 void IRAM_ATTR detectsMovement() {
-  Serial.println("MOTION DETECTED!!!");
-  digitalWrite(LED_BUILTIN, HIGH);
-  
+  Serial.println("MOTION DETECTED!!!");  
   // Interupt handler only raises the flag to send the sensor event
   sensor = 1;
 }
@@ -57,14 +55,15 @@ void setup()
     
     Serial.println("Setup done");
     pinMode (LED_BUILTIN, OUTPUT);
-
+    // Set LED to LOW
+    digitalWrite(LED_BUILTIN, LOW);
+    
     // PIR Motion Sensor mode INPUT_PULLUP
     pinMode(motionSensor, INPUT_PULLUP);
     // Set motionSensor pin as interrupt, assign interrupt function and set RISING mode
     attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
 
-    // Set LED to LOW
-    digitalWrite(LED_BUILTIN, LOW);  
+      
 }
 
 void loop()
