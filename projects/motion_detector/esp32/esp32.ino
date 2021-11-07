@@ -13,7 +13,7 @@
 #include "soc/rtc_wdt.h"
 
 
-#define MY_URL String("https://webhook.site/c9c462fd-4069-47e1-a524-fa8dbde80e34")
+#define MY_URL String("https://itp88o2j79.execute-api.us-east-1.amazonaws.com/dev/event")
 const int motionSensor = 27;
 
 /* We use a flag to indicate when the sensor movement was detected because 
@@ -64,9 +64,7 @@ void setup()
     attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
 
     // Set LED to LOW
-    digitalWrite(LED_BUILTIN, LOW);
-
-  
+    digitalWrite(LED_BUILTIN, LOW);  
 }
 
 void loop()
