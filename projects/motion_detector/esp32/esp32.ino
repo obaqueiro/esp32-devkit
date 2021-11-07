@@ -6,6 +6,7 @@
 #include "WiFi.h"
 #include <stdio.h>
 #include <HTTPClient.h>
+#include <TimeLib.h>
 
 #define timeSeconds 10
 #define MY_SSID "NETGEAR27_EXT"
@@ -14,12 +15,15 @@
 
 
 #define MY_URL String("https://itp88o2j79.execute-api.us-east-1.amazonaws.com/dev/event")
+#define EVENT_DELAY_TIME 60
 const int motionSensor = 27;
 
 /* We use a flag to indicate when the sensor movement was detected because 
  * we have to send the HTTP request outside of the interrupt handler
 */
 int sensor = 0;
+// Setu
+time_t lastEventTime = now() - EVENT_DELAY_TIME ;
 
 // Performs a GET request to the endpoint appending the specified sensor
 void do_request(String sensor) {
@@ -37,9 +41,20 @@ void do_request(String sensor) {
 
 // Checks if motion was detected, sets LED HIGH and starts a timer
 void IRAM_ATTR detectsMovement() {
-  Serial.println("MOTION DETECTED!!!");  
+  Serial.println("Motiong detected");  
   // Interupt handler only raises the flag to send the sensor event
-  sensor = 1;
+  time_t timeNow = now();
+
+  // Wait at least 60 seconds between sending events
+  Serial.println(timeNow - lastEventTime);    
+  if (timeNow - lastEventTime > EVENT_DELAY_TIME) {
+    
+    Serial.println("Sending event");  
+    sensor = 1;
+    lastEventTime = timeNow;
+  } else {
+      Serial.println("Delayig event dispatch");  
+  }
 }
 
 void setup()
