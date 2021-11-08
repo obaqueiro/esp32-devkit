@@ -9,12 +9,12 @@
 #include <TimeLib.h>
 
 #define timeSeconds 10
-#define MY_SSID "NETGEAR27_EXT"
-#define PASSWORD "greenorchestra821"
+#define MY_SSID "yourWiFiSSID"
+#define PASSWORD "YourWifiPassword"
 #include "soc/rtc_wdt.h"
 
 
-#define MY_URL String("https://itp88o2j79.execute-api.us-east-1.amazonaws.com/dev/event")
+#define MY_URL String("https://your-AWS-api-gateway-endpoint.aws.amazon.com")
 #define EVENT_DELAY_TIME 60
 const int motionSensor = 27;
 
